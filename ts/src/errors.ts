@@ -21,10 +21,12 @@ export class ProcessError extends ClaudeSDKError {
 }
 
 export class CLIJSONDecodeError extends ClaudeSDKError {
-    constructor(
-        public line: string,
-        public originalError: Error,
-    ) {
+    line: string;
+    originalError: Error;
+
+    constructor(line: string, originalError: Error) {
         super(`Failed to decode JSON: ${line.slice(0, 100)}...`);
+        this.line = line;
+        this.originalError = originalError;
     }
 }
