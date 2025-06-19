@@ -53,7 +53,8 @@
                 "noDuplicateElseIf": "error",
                 "noDuplicateProperties": "error",
                 "noIrregularWhitespace": "error",
-                "noTemplateCurlyInString": "warn"
+                "noTemplateCurlyInString": "warn",
+                "noConstEnum": "error"
             },
             "complexity": {
                 "noBannedTypes": "warn",
@@ -71,11 +72,15 @@
                 }
             },
             "performance": {
-                "noBarrelFile": "warn",
+                "noBarrelFile": "off",
                 "useTopLevelRegex": "warn"
             },
             "style": {
                 "noNamespace": "error",
+                "noEnum": "error",
+                "noParameterProperties": "error",
+                "noCommonJs": "error",
+
                 "noNonNullAssertion": "off",
                 "useFragmentSyntax": "warn",
                 "useImportType": "error",
@@ -90,8 +95,6 @@
                 "useNumberNamespace": "error",
                 "noInferrableTypes": "error",
                 "noUselessElse": "error",
-                "noCommonJs": "warn",
-                "noEnum": "error",
                 "noSubstr": "warn",
                 "useAtIndex": "warn",
                 "useCollapsedIf": "warn",
