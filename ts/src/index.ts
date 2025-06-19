@@ -4,7 +4,7 @@ export {
     CLINotFoundError,
     ClaudeSDKError,
     ProcessError,
-} from "./errors";
+} from "./errors.ts";
 export type {
     AssistantMessage,
     ClaudeCodeOptions,
@@ -17,19 +17,27 @@ export type {
     ToolResultBlock,
     ToolUseBlock,
     UserMessage,
-} from "./types";
+} from "./types.ts";
 
-import { InternalClient } from "./internal/client";
-import type { Message as Msg, ClaudeCodeOptions as Options } from "./types";
+import { ErrorEvent } from "./error-event.ts";
+import { GenericEventTarget } from "./generic-event-target.ts";
+import { InternalClient } from "./internal/client.ts";
+import type { Message, ClaudeCodeOptions as Options } from "./types.ts";
 
-export async function* query(prompt: string, options: Options = {}): AsyncIterable<Msg> {
+export async function* query(prompt: string, options: Options = {}): AsyncIterable<Message> {
     const client = new InternalClient();
-    for await (const m of client.processQuery(prompt, options)) {
-        yield m;
+    for await (const message of client.processQuery(prompt, options)) {
+        yield message;
     }
 }
 
-export class QueryEventTarget extends EventTarget {
+type QueryEventMap = {
+    message: MessageEvent<Message>;
+    end: Event;
+    error: ErrorEvent;
+};
+
+export class QueryEventTarget extends GenericEventTarget<QueryEventMap> {
     private abortController = new AbortController();
 
     constructor(prompt: string, options: Options = {}) {
