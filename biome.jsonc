@@ -1,0 +1,133 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 100
+    },
+    "javascript": {
+        "formatter": {
+            "arrowParentheses": "asNeeded",
+            "semicolons": "always",
+            "quoteStyle": "double"
+        }
+    },
+    "css": {
+        "formatter": {
+            "quoteStyle": "double"
+        }
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on",
+                "useSortedProperties": "on"
+            }
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "correctness": {
+                "noUnusedImports": "warn",
+                "noUnusedFunctionParameters": "warn",
+                "noUnusedPrivateClassMembers": "warn",
+                "useExhaustiveDependencies": "warn",
+                "useHookAtTopLevel": "error",
+                "noEmptyPattern": "warn",
+                "noUnknownPseudoClass": "error",
+                "noUnknownPseudoElement": "error",
+                "noUnknownTypeSelector": "error"
+            },
+            "suspicious": {
+                "noEmptyInterface": "warn",
+                "noDocumentCookie": "error",
+                "noDuplicateCustomProperties": "error",
+                "noDuplicateElseIf": "error",
+                "noDuplicateProperties": "error",
+                "noIrregularWhitespace": "error",
+                "noTemplateCurlyInString": "warn"
+            },
+            "complexity": {
+                "noBannedTypes": "warn",
+                "noUselessEscapeInRegex": "warn",
+                "noUselessStringRaw": "warn"
+            },
+            "nursery": {
+                "noSecrets": "error",
+                "useSortedClasses": {
+                    "level": "error",
+                    "options": {
+                        "attributes": ["className"],
+                        "functions": ["cva", "cx", "clsx"]
+                    }
+                }
+            },
+            "performance": {
+                "noBarrelFile": "warn",
+                "useTopLevelRegex": "warn"
+            },
+            "style": {
+                "noNamespace": "error",
+                "noNonNullAssertion": "off",
+                "useFragmentSyntax": "warn",
+                "useImportType": "error",
+                "useNodejsImportProtocol": "error",
+                "noParameterAssign": "error",
+                "useAsConstAssertion": "error",
+                "useDefaultParameterLast": "error",
+                "useEnumInitializers": "error",
+                "useSelfClosingElements": "error",
+                "useSingleVarDeclarator": "error",
+                "noUnusedTemplateLiteral": "error",
+                "useNumberNamespace": "error",
+                "noInferrableTypes": "error",
+                "noUselessElse": "error",
+                "noCommonJs": "warn",
+                "noEnum": "error",
+                "noSubstr": "warn",
+                "useAtIndex": "warn",
+                "useCollapsedIf": "warn",
+                "useComponentExportOnlyModules": {
+                    "level": "error",
+                    "options": {
+                        "allowExportNames": [
+                            "loader",
+                            "clientLoader",
+                            "action",
+                            "clientAction",
+                            "ErrorBoundary",
+                            "HydrateFallback",
+                            "headers",
+                            "handle",
+                            "links",
+                            "meta",
+                            "shouldRevalidate"
+                        ]
+                    }
+                },
+                "useConsistentMemberAccessibility": {
+                    "level": "error",
+                    "options": {
+                        "accessibility": "none"
+                    }
+                },
+                "useTrimStartEnd": "error",
+                "useConsistentArrayType": {
+                    "level": "warn",
+                    "options": { "syntax": "shorthand" }
+                }
+            },
+            "a11y": {
+                "useValidAutocomplete": "error"
+            }
+        }
+    }
+}

@@ -12,6 +12,8 @@
   "type": "module",
   "exports": "./dist/index.js",
   "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
+    "@types/node": "^24.0.3",
     "obuild": "^0.1.0",
     "typescript": "^5.4.0"
   },

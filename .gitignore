@@ -27,13 +27,6 @@ ENV/
 env/
 .venv
 
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
 # Testing
 .tox/
 .coverage
