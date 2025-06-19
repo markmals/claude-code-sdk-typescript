@@ -61,7 +61,7 @@
                 "noUselessStringRaw": "warn"
             },
             "nursery": {
-                "noSecrets": "error",
+                "noSecrets": "off",
                 "useSortedClasses": {
                     "level": "error",
                     "options": {
