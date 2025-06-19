@@ -1,7 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.class
 *.so
 .Python
 build/
@@ -47,3 +47,8 @@ htmlcov/
 .dmypy.json
 dmypy.json
 .pyre/
+
+# Node
+node_modules/
+dist/
+.output/

@@ -1,0 +1,21 @@
+{
+  "name": "claude-code-sdk-typescript",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for Claude Code",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "obuild"
+  },
+  "keywords": [],
+  "author": "Anthropic",
+  "license": "MIT",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "devDependencies": {
+    "obuild": "^0.1.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
