@@ -5,7 +5,9 @@
     "main": "./dist/index.js",
     "scripts": {
         "build": "obuild",
-        "fmt": "biome check --write --unsafe --assist-enabled=true ."
+        "fmt": "biome check --write --unsafe --assist-enabled=true .",
+        "test": "node --experimental-strip-types --test './tests/*.test.ts'",
+        "test:watch": "node --experimental-strip-types --test --watch tests/*.test.ts"
     },
     "keywords": [],
     "author": "Anthropic",
