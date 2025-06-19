@@ -113,12 +113,6 @@
                         ]
                     }
                 },
-                "useConsistentMemberAccessibility": {
-                    "level": "error",
-                    "options": {
-                        "accessibility": "none"
-                    }
-                },
                 "useTrimStartEnd": "error",
                 "useConsistentArrayType": {
                     "level": "warn",
