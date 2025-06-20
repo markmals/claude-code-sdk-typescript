@@ -3,20 +3,27 @@ import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import readline from "node:readline";
 import type { Readable } from "node:stream";
-import { CLIConnectionError, CLIJSONDecodeError, CLINotFoundError, ProcessError } from "../errors";
-import type { ClaudeCodeOptions } from "../types";
-import type { Transport } from "./transport";
+import dedent from "dedent";
+import {
+    CLIConnectionError,
+    CLIJSONDecodeError,
+    CLINotFoundError,
+    ProcessError,
+} from "../errors.ts";
+import type { ClaudeCodeOptions } from "../types.ts";
+import type { JSONValue, Transport } from "./transport.ts";
 
 export class SubprocessCLITransport implements Transport {
     private process: ChildProcessWithoutNullStreams | null = null;
     private stdout?: Readable;
     private stderr?: Readable;
+    private prompt: string;
+    private options: ClaudeCodeOptions;
+    private cliPath?: string | null;
 
-    constructor(
-        private prompt: string,
-        private options: ClaudeCodeOptions,
-        private cliPath?: string | null,
-    ) {
+    constructor(prompt: string, options: ClaudeCodeOptions, cliPath?: string | null) {
+        this.prompt = prompt;
+        this.options = options;
         this.cliPath = cliPath ?? this.findCLI();
     }
 
@@ -35,13 +42,21 @@ export class SubprocessCLITransport implements Transport {
             `${home}/.local/bin/claude`,
             `${home}/node_modules/.bin/claude`,
             `${home}/.yarn/bin/claude`,
+            `${home}/.bun/bin/claude`,
+            `${home}/.deno/bin/claude`,
         ];
         for (const p of guesses) {
             if (existsSync(p)) return p;
         }
-        if (!existsSync("node")) {
+        if (!existsSync("node") || !existsSync("deno") || !existsSync("bun")) {
             throw new CLINotFoundError(
-                "Claude Code requires Node.js. Install Node.js then run: npm install -g @anthropic-ai/claude-code",
+                dedent`
+                Claude Code requires a JavaScript runtime. Please install one:
+
+                * Install Node.js then run: npm install -g @anthropic-ai/claude-code
+                * Install Deno then run: deno install -g @anthropic-ai/claude-code
+                * Install Bun then run: bun install -g @anthropic-ai/claude-code
+                `,
             );
         }
         throw new CLINotFoundError(
@@ -102,6 +117,7 @@ export class SubprocessCLITransport implements Transport {
             });
             this.stdout = this.process.stdout;
             this.stderr = this.process.stderr;
+            // biome-ignore lint/suspicious/noExplicitAny: Easier to handle errors as any than as unknown
         } catch (err: any) {
             if (err.code === "ENOENT") {
                 throw new CLINotFoundError("", this.cliPath || "");
@@ -121,10 +137,10 @@ export class SubprocessCLITransport implements Transport {
     }
 
     async sendRequest(): Promise<void> {
-        // not used; CLI args only
+        /** Not used for CLI transport - args passed via command line. */
     }
 
-    async *receiveMessages(): AsyncIterable<Record<string, any>> {
+    async *receiveMessages(): AsyncIterable<JSONValue> {
         if (!this.process || !this.stdout) {
             throw new CLIConnectionError("Not connected");
         }
@@ -139,6 +155,7 @@ export class SubprocessCLITransport implements Transport {
             try {
                 const data = JSON.parse(trimmed);
                 yield data;
+                // biome-ignore lint/suspicious/noExplicitAny: Easier to handle errors as any than as unknown
             } catch (e: any) {
                 if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
                     throw new CLIJSONDecodeError(trimmed, e);
