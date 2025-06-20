@@ -9,9 +9,9 @@ import type {
     ToolResultBlock,
     ToolUseBlock,
     UserMessage,
-} from "../types";
-import { SubprocessCLITransport } from "./subprocess-cli";
-import type { Transport } from "./transport";
+} from "../types.ts";
+import { SubprocessCLITransport } from "./subprocess-cli.ts";
+import type { Transport } from "./transport.ts";
 
 export class InternalClient {
     async *processQuery(prompt: string, options: ClaudeCodeOptions): AsyncIterable<Message> {
@@ -27,6 +27,7 @@ export class InternalClient {
         }
     }
 
+    // biome-ignore lint/suspicious/noExplicitAny: JSON any
     private parseMessage(data: any): Message | null {
         switch (data.type) {
             case "user":
