@@ -36,7 +36,7 @@
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
         ".env": "*.env, .env.*, .envrc, env.d.ts",
-        "package.json": ".bun-version, .github*, .vscode*, biome*, bun.lock, tsconfig.*, worker-configuration.*, wrangler.toml, workspace.json",
+        "package.json": ".github*, .vscode*, biome*, package-lock.json, tsconfig.*, workspace.json, .nvm*, .npm*, *.config.ts",
         "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*"
     },
     "files.exclude": {
